@@ -13,6 +13,7 @@
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
+    "mysql": "^2.18.1",
     "nodeinstall": "^0.1.3",
     "pm2": "^5.1.0",
     "request": "^2.88.2"
