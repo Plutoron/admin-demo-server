@@ -1,30 +1,60 @@
 create database test;
 
--- 公司
-create table info
+-- about
+create table about
 (
   id int primary key AUTO_INCREMENT,
   name varchar(255) not null,
   logo varchar(255) not null,
   phone varchar(255) not null,
   fax varchar(255) not null,
+  mail varchar(255) not null,
   qrcode varchar(255) not null,
-  address varchar(255),
+  address varchar(255) not null,
+  intro varchar(255) not null,
+  orgImg varchar(255) not null,
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- 向数据库添加字段
+-- ALTER TABLE student ADD ctime TIMESTAMP;
+-- ALTER TABLE student ADD mtime TIMESTAMP;
+-- ALTER TABLE student ADD mtime TIMESTAMP first; 
+
+-- ALTER TABLE about ADD COLUMN  mail varchar(255) not null COMMENT '邮箱' after fax;
+-- 更新字段
+-- ALTER TABLE `table_name` ADD COLUMN  `CreateTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间';
+-- ALTER TABLE info ADD COLUMN  intro varchar(255) not null COMMENT '公司简介' after address;
+-- ALTER TABLE info ADD COLUMN  orgImg varchar(255) not null COMMENT '组织结构图片' after intro;
+-- ALTER TABLE `info` MODIFY COLUMN `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间';
+-- ALTER TABLE `info` MODIFY COLUMN `mtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+
+-- init 数据
+insert into about 
+(name, logo, phone, fax, qrcode, address, intro, orgImg) 
+values 
+("上海", "logo", "110", "fax110", "qrcode", "地址", '简介', '组织图片');
+
+update info set logo="sssss" where name="上海";
 
 -- 荣誉
 CREATE TABLE honor
 (
-  id int identity(1,1) primary key,
+  id int key AUTO_INCREMENT,
   title varchar(255),
-  url varchar(255),
+  img varchar(255),
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- 解决方案
 CREATE TABLE solution
 (
-  id int identity(1,1) primary key,
+  id int key AUTO_INCREMENT,
   title varchar(255),
-  type varchar(255),
-  url varchar(255),
+  type varchar(255) check(type in ('build', 'manage', 'protect')),
+  img varchar(255),
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
