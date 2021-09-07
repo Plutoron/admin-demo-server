@@ -21,7 +21,7 @@ router.get('/solution/:type', async (ctx, next) => {
   const { type } = params
 
   try {
-    const res = await mysql.selectKeysWithRule('solution', solutionQueryKeys, 'type', type)
+    const res = await mysql.selectKeysWithRules('solution', solutionQueryKeys, { type, valid: 1 })
 
     console.log(res)
 
@@ -55,7 +55,7 @@ router.post('/solution/:id', async (ctx, next) => {
       id
     )
 
-    const _res = await mysql.selectKeysById('solution', solutionQueryKeys, id)
+    const _res = await mysql.selectKeysWithRules('solution', solutionQueryKeys, { id, valid: 1 })
 
     successReturn(ctx, _res[0])
   } catch (e) {
@@ -67,7 +67,7 @@ router.delete('/solution/:id', async (ctx, next) => {
   const { params } = ctx.request
   const { id } = params
   try {
-    const res = await mysql.deleteDataById('solution', id)
+    const res = await mysql.updateDataById('solution', { valid: 0 }, id)
 
     successReturn(ctx, res)
   } catch (e) {

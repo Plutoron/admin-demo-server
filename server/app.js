@@ -10,6 +10,9 @@ const upload = require('./routers/upload')
 const company = require('./routers/company')
 const honor = require('./routers/honor')
 const solution = require('./routers/solution')
+const hire = require('./routers/hire')
+const culture = require('./routers/culture')
+const news = require('./routers/news')
 
 const { NODE_ENV = 'development', PORT = 3000 } = process.env
 
@@ -31,6 +34,9 @@ app.use(upload.routes())
 app.use(company.routes())
 app.use(honor.routes())
 app.use(solution.routes())
+app.use(hire.routes())
+app.use(culture.routes())
+app.use(news.routes())
 
 app.listen(PORT, () => {
   console.log('This server is running at http://localhost:' + PORT)

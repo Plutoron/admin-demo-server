@@ -68,9 +68,25 @@ const selectKeysById = function(table, keys, id) {
   return query(_sql, [keys, table, id])
 }
 
-const selectKeysWithRule = (table, keys, key, value) => {
-  const _sql =  "SELECT ?? FROM ?? WHERE ?? = ?"
-  return query(_sql, [keys, table, key, value])
+const selectKeysWithRules = (table, keys, rules) => {
+  const ruleColumns = Object.keys(rules)
+  const ruleParamData = []
+  let basicSql = 'SELECT ?? FROM ??'
+  let ruleSql = ''
+
+  if (ruleColumns.length > 0) {
+    ruleSql = ' WHERE' + ruleColumns.map((v, i) => {
+      const key = v
+      const value = rules[v]
+
+      ruleParamData.push(key, value)
+
+      return ` ?? = ?`
+    }).join(' AND')
+  }
+
+  const _sql = `${basicSql}${ruleSql}`
+  return query(_sql, [keys, table, ...ruleParamData])
 }
  
 const count = function(table) {
@@ -88,6 +104,6 @@ module.exports = {
   updateDataById,
   select,
   selectKeysById,
-  selectKeysWithRule,
+  selectKeysWithRules,
   count,
 }

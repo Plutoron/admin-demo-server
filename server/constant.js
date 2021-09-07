@@ -10,8 +10,13 @@ const solutionQueryKeys = [
   'id', 'title', 'type', 'img'
 ]
 
+const newsQueryKeys = [
+  'id', 'title', 'subtitle', 'poster', 'time'
+]
+
 module.exports = {
   aboutQueryKeys,
   honorQueryKeys,
-  solutionQueryKeys
+  solutionQueryKeys,
+  newsQueryKeys
 }

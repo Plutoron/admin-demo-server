@@ -30,6 +30,11 @@ create table about
 -- ALTER TABLE `info` MODIFY COLUMN `ctime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间';
 -- ALTER TABLE `info` MODIFY COLUMN `mtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
 
+
+LONGTEXT
+
+ALTER TABLE `hire` MODIFY COLUMN `html` LONGTEXT NULL COMMENT '富文本';
+
 -- init 数据
 insert into about 
 (name, logo, phone, fax, qrcode, address, intro, orgImg) 
@@ -44,6 +49,7 @@ CREATE TABLE honor
   id int key AUTO_INCREMENT,
   title varchar(255),
   img varchar(255),
+  valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -55,6 +61,43 @@ CREATE TABLE solution
   title varchar(255),
   type varchar(255) check(type in ('build', 'manage', 'protect')),
   img varchar(255),
+  valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- 招聘
+
+CREATE TABLE hire
+(
+  id int key AUTO_INCREMENT,
+  html varchar(255),
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE culture
+(
+  id int key AUTO_INCREMENT,
+  html varchar(255),
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE news
+(
+  id int key AUTO_INCREMENT,
+  title varchar(255),
+  subtitle varchar(255),
+  poster varchar(255),
+  time TIMESTAMP,
+  html varchar(255),
+  valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+ALTER TABLE news ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after html;
+ALTER TABLE solution ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;
+ALTER TABLE honor ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;

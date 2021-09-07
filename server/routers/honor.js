@@ -18,7 +18,7 @@ const mysql = require('../mysql')
 
 router.get('/honor', async (ctx, next) => {
   try {
-    const res = await mysql.select('honor', [honorQueryKeys])
+    const res = await mysql.selectKeysWithRules('honor', honorQueryKeys, { valid: 1 })
 
     successReturn(ctx, res)
   } catch (e) {
@@ -26,7 +26,7 @@ router.get('/honor', async (ctx, next) => {
   }
 })
 
-router.post('/honor/add', async (ctx, next) => {
+router.post('/honor', async (ctx, next) => {
   const { body } = ctx.request
   const updateObj = getDataObjFromBody(body)
 
@@ -50,7 +50,7 @@ router.post('/honor/:id', async (ctx, next) => {
       id
     )
 
-    const _res = await mysql.selectKeysById('honor', honorQueryKeys, id)
+    const _res = await mysql.selectKeysWithRules('honor', honorQueryKeys, { id, valid: 1 })
 
     successReturn(ctx, _res[0])
   } catch (e) {
@@ -62,7 +62,7 @@ router.delete('/honor/:id', async (ctx, next) => {
   const { params } = ctx.request
   const { id } = params
   try {
-    const res = await mysql.deleteDataById('honor', id)
+    const res = await mysql.updateDataById('honor', { valid: 0 }, id)
 
     successReturn(ctx, res)
   } catch (e) {
