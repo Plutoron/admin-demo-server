@@ -3,3 +3,4 @@ package-lock.json
 public/uploads/*
 public/static/*
 logs
+node*

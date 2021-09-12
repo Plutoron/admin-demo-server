@@ -4,16 +4,16 @@ create database test;
 create table about
 (
   id int primary key AUTO_INCREMENT,
-  name varchar(255) not null,
-  logo varchar(255) not null,
-  phone varchar(255) not null,
-  fax varchar(255) not null,
-  mail varchar(255) not null,
-  qrcode varchar(255) not null,
-  address varchar(255) not null,
-  intro varchar(255) not null,
-  orgImg varchar(255) not null,
-  fillinfo varchar(255) not null,
+  name varchar(255),
+  logo varchar(255),
+  phone varchar(255),
+  fax varchar(255),
+  mail varchar(255),
+  qrcode varchar(255),
+  address varchar(255),
+  intro varchar(255),
+  orgImg varchar(255),
+  fillinfo varchar(255),
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -72,7 +72,7 @@ CREATE TABLE solution
 CREATE TABLE hire
 (
   id int key AUTO_INCREMENT,
-  html varchar(255),
+  html LONGTEXT,
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -81,7 +81,7 @@ CREATE TABLE hire
 CREATE TABLE culture
 (
   id int key AUTO_INCREMENT,
-  html varchar(255),
+  html LONGTEXT,
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -93,7 +93,7 @@ CREATE TABLE news
   subtitle varchar(255),
   poster varchar(255),
   time TIMESTAMP,
-  html varchar(255),
+  html LONGTEXT,
   valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -104,3 +104,10 @@ ALTER TABLE solution ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否�
 ALTER TABLE honor ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;
 
 ALTER TABLE about ADD COLUMN fillinfo varchar(255) null COMMENT '备案信息' after orgImg;
+
+
+text
+
+ALTER TABLE `news` MODIFY COLUMN `html` LONGTEXT;
+ALTER TABLE `culture` MODIFY COLUMN `html` LONGTEXT;
+ALTER TABLE `hire` MODIFY COLUMN `html` LONGTEXT;
