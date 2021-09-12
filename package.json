@@ -7,17 +7,11 @@
     "start-dev": "pm2 start pm2.config.js --env development",
     "start": "pm2 start pm2.config.js --env production"
   },
-  "engines": {
-    "install-node": "^10.16.0"
-  },
   "dependencies": {
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
-    "mysql": "^2.18.1",
-    "nodeinstall": "^0.1.3",
-    "pm2": "^5.1.0",
-    "request": "^2.88.2"
+    "mysql": "^2.18.1"
   }
 }
