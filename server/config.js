@@ -15,7 +15,7 @@ const database = {
   production: {
     DATABASE: 'company',
     USERNAME: 'root',
-    PASSWORD: '123456',
+    PASSWORD: '123456Sy.',
     PORT: '3306',
     HOST: '127.0.0.1'
   }

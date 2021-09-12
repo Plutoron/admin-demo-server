@@ -21,7 +21,7 @@ router.get('/company/detail', async (ctx, next) => {
   try {
     const res = await mysql.selectKeysById('about', [aboutQueryKeys], 1)
 
-    successReturn(ctx, res[0])
+    successReturn(ctx, res[0] || {})
   } catch (e) {
     errorReturn(ctx, e)
   }
@@ -39,7 +39,13 @@ router.post('/company/detail', async (ctx, next) => {
 
     const _res = await mysql.selectKeysById('about', aboutQueryKeys, 1)
 
-    successReturn(ctx, _res[0])
+    if (_res.length === 0) {
+      const __res = await mysql.insertData('about', updateObj)
+      console.log(__res)
+      successReturn(ctx, __res)
+    } else {
+      successReturn(ctx, _res[0])
+    }   
   } catch (e) {
     errorReturn(ctx, e)
   }
