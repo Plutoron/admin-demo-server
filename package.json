@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start-dev": "pm2 start pm2.config.js --env development",
+    "start": "pm2 start pm2.config.js --env production"
   },
   "engines": {
     "install-node": "^10.16.0"

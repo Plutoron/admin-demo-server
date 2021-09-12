@@ -16,6 +16,29 @@ router.get('/news', async (ctx, next) => {
   }
 })
 
+router.get('/news/home', async (ctx, next) => {
+  try {
+    const res = await mysql.findValidDataByPage('news', newsQueryKeys, 0, 4)
+
+    successReturn(ctx, res)
+  } catch (e) {
+    errorReturn(ctx, e)
+  }
+})
+
+router.post('/news', async (ctx, next) => {
+  const { body } = ctx.request
+  const updateObj = getDataObjFromBody(body)
+
+  try {
+    const res = await mysql.insertData('news', updateObj)
+
+    successReturn(ctx, res)
+  } catch (e) {
+    errorReturn(ctx, e)
+  }
+})
+
 router.get('/news/:id', async (ctx, next) => {
   const { body, params } = ctx.request
   const { id } = params
@@ -28,7 +51,6 @@ router.get('/news/:id', async (ctx, next) => {
     errorReturn(ctx, e)
   }
 })
-
 
 router.post('/news/:id', async (ctx, next) => {
   const { body, params } = ctx.request

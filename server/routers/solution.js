@@ -16,6 +16,16 @@ const mysql = require('../mysql')
 
 // })
 
+router.get('/solution/home', async (ctx, next) => {
+  try {
+    const res = await mysql.findValidDataByPage('solution', solutionQueryKeys, 0, 4)
+
+    successReturn(ctx, res)
+  } catch (e) {
+    errorReturn(ctx, e)
+  }
+})
+
 router.get('/solution/:type', async (ctx, next) => {
   const { params } = ctx.request
   const { type } = params
@@ -24,19 +34,6 @@ router.get('/solution/:type', async (ctx, next) => {
     const res = await mysql.selectKeysWithRules('solution', solutionQueryKeys, { type, valid: 1 })
 
     console.log(res)
-
-    successReturn(ctx, res)
-  } catch (e) {
-    errorReturn(ctx, e)
-  }
-})
-
-router.post('/solution/add', async (ctx, next) => {
-  const { body } = ctx.request
-  const updateObj = getDataObjFromBody(body)
-
-  try {
-    const res = await mysql.insertData('solution', updateObj)
 
     successReturn(ctx, res)
   } catch (e) {
@@ -58,6 +55,19 @@ router.post('/solution/:id', async (ctx, next) => {
     const _res = await mysql.selectKeysWithRules('solution', solutionQueryKeys, { id, valid: 1 })
 
     successReturn(ctx, _res[0])
+  } catch (e) {
+    errorReturn(ctx, e)
+  }
+})
+
+router.post('/solution', async (ctx, next) => {
+  const { body } = ctx.request
+  const updateObj = getDataObjFromBody(body)
+
+  try {
+    const res = await mysql.insertData('solution', updateObj)
+
+    successReturn(ctx, res)
   } catch (e) {
     errorReturn(ctx, e)
   }

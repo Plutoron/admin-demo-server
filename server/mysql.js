@@ -1,12 +1,16 @@
 const mysql = require("mysql")
 
 const { database } = require('./config') 
+
+const { NODE_ENV = 'development', PORT = 3000 } = process.env
+
+const _database = database[NODE_ENV]
  
 const pool = mysql.createPool({
-    host        : database.HOST,
-    user        : database.USERNAME,
-    password    : database.PASSWORD,
-    database    : database.DATABASE
+    host        : _database.HOST,
+    user        : _database.USERNAME,
+    password    : _database.PASSWORD,
+    database    : _database.DATABASE
 });
 
 const query = (sql, values) => {
@@ -39,7 +43,12 @@ const findDataById = function(table,  id) {
 }
  
 const findDataByPage = function(table, keys, start, end) {
-  const  _sql =  "SELECT ?? FROM ??  LIMIT ? , ?"
+  const  _sql =  "SELECT ?? FROM ?? LIMIT ? , ?"
+  return query(_sql, [keys,  table,  start, end])
+}
+
+const findValidDataByPage = function(table, keys, start, end) {
+  const  _sql =  "SELECT ?? FROM ?? WHERE valid = 1 LIMIT ? , ?"
   return query(_sql, [keys,  table,  start, end])
 }
  
@@ -99,6 +108,7 @@ module.exports = {
   createTable,
   findDataById,
   findDataByPage,
+  findValidDataByPage,
   deleteDataById,
   insertData,
   updateDataById,

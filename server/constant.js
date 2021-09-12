@@ -1,5 +1,5 @@
 const aboutQueryKeys = [
-  'name', 'logo', 'phone', 'fax', 'mail', 'qrcode', 'address', 'intro', 'orgImg'
+  'name', 'logo', 'phone', 'fax', 'mail', 'qrcode', 'address', 'intro', 'orgImg', 'fillinfo'
 ]
 
 const honorQueryKeys = [
