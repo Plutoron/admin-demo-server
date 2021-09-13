@@ -13,6 +13,7 @@ const solution = require('./routers/solution')
 const hire = require('./routers/hire')
 const culture = require('./routers/culture')
 const news = require('./routers/news')
+const banner = require('./routers/banner')
 
 const { NODE_ENV = 'development', PORT = 3000 } = process.env
 
@@ -37,6 +38,7 @@ app.use(solution.routes())
 app.use(hire.routes())
 app.use(culture.routes())
 app.use(news.routes())
+app.use(banner.routes())
 
 app.listen(PORT, () => {
   console.log('This server is running at http://localhost:' + PORT)

@@ -75,7 +75,7 @@ CREATE TABLE hire
   html LONGTEXT,
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) default charset utf8 COLLATE utf8_general_ci;
 
 
 CREATE TABLE culture
@@ -99,6 +99,15 @@ CREATE TABLE news
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE banner
+(
+  id int key AUTO_INCREMENT,
+  img varchar(255),
+  valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 ALTER TABLE news ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after html;
 ALTER TABLE solution ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;
 ALTER TABLE honor ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;
@@ -106,7 +115,7 @@ ALTER TABLE honor ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有�
 ALTER TABLE about ADD COLUMN fillinfo varchar(255) null COMMENT '备案信息' after orgImg;
 
 
-text
+text 
 
 ALTER TABLE `news` MODIFY COLUMN `html` LONGTEXT;
 ALTER TABLE `culture` MODIFY COLUMN `html` LONGTEXT;
