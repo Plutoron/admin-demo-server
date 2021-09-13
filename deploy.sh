@@ -1,3 +1,4 @@
+rm -rf node/ node.tar.gz
 mkdir node 
 cp -r server node/
 cp package* node/
