@@ -38,7 +38,7 @@ const createTable = function(sql) {
 }
 
 const findDataById = function(table,  id) {
-  const  _sql =  "SELECT * FROM ?? WHERE id = ? "
+  const  _sql =  "SELECT * FROM ?? WHERE id = ?"
   return query(_sql, [table, id])
 }
  
@@ -94,7 +94,7 @@ const selectKeysWithRules = (table, keys, rules) => {
     }).join(' AND')
   }
 
-  const _sql = `${basicSql}${ruleSql}`
+  const _sql = `${basicSql}${ruleSql} order by ctime DESC`
   return query(_sql, [keys, table, ...ruleParamData])
 }
  

@@ -18,10 +18,15 @@ const bannerQueryKeys = [
   'id', 'img'
 ]
 
+const userQueryKeys = [
+  'id', 'username', 'password'
+]
+
 module.exports = {
   aboutQueryKeys,
   honorQueryKeys,
   solutionQueryKeys,
   newsQueryKeys,
-  bannerQueryKeys
+  bannerQueryKeys,
+  userQueryKeys
 }

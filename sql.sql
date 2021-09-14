@@ -106,7 +106,17 @@ CREATE TABLE banner
   valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
   ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) default charset utf8 COLLATE utf8_general_ci;
+
+CREATE TABLE user
+(
+  id int key AUTO_INCREMENT,
+  username varchar(20),
+  password varchar(20),
+  valid tinyint(1) null DEFAULT 1 COMMENT '是否有效',
+  ctime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  mtime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) default charset utf8 COLLATE utf8_general_ci;
 
 ALTER TABLE news ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after html;
 ALTER TABLE solution ADD COLUMN valid tinyint(1) null DEFAULT 1 COMMENT '是否有效' after img;
