@@ -56,15 +56,18 @@ app.use(async (ctx, next) => {
   // 对/favicon.ico网站图标请求忽略
   if (ctx.path === '/favicon.ico') return;
 
-  ctx.path = ctx.path.replace('/admin', '')
-
   await next()
 })
 
-app.use(login.routes())
-
 app.use(async (ctx, next) => {
-  if (!ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
+  if (ctx.path.includes('/login')) {
+    ctx.path = ctx.path.replace('/admin', '')
+    await next()
+  }
+
+  const isAdmin = ctx.path.startsWith('/admin')
+
+  if (isAdmin && !ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
     ctx.body = {
       code: 0,
       message: '请登录',
@@ -73,8 +76,12 @@ app.use(async (ctx, next) => {
     return;
   }
 
+  ctx.path = ctx.path.replace('/admin', '')
+
   await next()
 })
+
+app.use(login.routes())
 
 app.use(company.routes())
 app.use(honor.routes())
