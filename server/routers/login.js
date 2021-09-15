@@ -21,7 +21,7 @@ router.post('/login', async (ctx) => {
 
     if (res[0]) {
     // 保存登录状态，这句代码会在浏览器中生成一个以 "koa:sess" 为 Name 的 cookie
-      ctx.session.userInfo = {username: '', id: ''}
+      ctx.session.userInfo = {username, id: res[0].id}
       successReturn(ctx, 1)
     } else {
       successReturn(ctx, 0)

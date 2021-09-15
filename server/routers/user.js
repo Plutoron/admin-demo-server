@@ -26,6 +26,18 @@ router.get('/user', async (ctx, next) => {
   }
 })
 
+router.get('/user/info', async (ctx, next) => {
+  const { userInfo } = ctx.session
+  const { id } = userInfo
+  try {
+    const res = await mysql.selectKeysWithRules('user', userQueryKeys, { valid: 1, id })
+
+    successReturn(ctx, res[0])
+  } catch (e) {
+    errorReturn(ctx, e)
+  }
+})
+
 router.post('/user', async (ctx, next) => {
   const { body } = ctx.request
   const updateObj = getDataObjFromBody(body)
