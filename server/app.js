@@ -59,7 +59,7 @@ app.use(async (ctx, next) => {
   // 对/favicon.ico网站图标请求忽略
   if (ctx.path === '/favicon.ico') return;
 
-  if (!ctx.path.startsWith('/admin') && !ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
+  if (ctx.path.startsWith('/admin') && !ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
     ctx.body = {
       code: 0,
       message: '请登录',
