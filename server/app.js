@@ -20,7 +20,6 @@ const app = new Koa()
 const session = Koa_Session(session_config, app)
 app.keys = session_signed_key;
 
-
 const upload = require('./routers/upload')
 
 const login = require('./routers/login')
@@ -60,7 +59,7 @@ app.use(async (ctx, next) => {
   // 对/favicon.ico网站图标请求忽略
   if (ctx.path === '/favicon.ico') return;
 
-  if (!ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
+  if (!ctx.path.startsWith('/admin') && !ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
     ctx.body = {
       code: 0,
       message: '请登录',
