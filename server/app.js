@@ -48,18 +48,23 @@ app.use(koaBody({
 
 app.use(staticResource(path.join(__dirname, '../public')))
 
-
 app.use(upload.routes())
 
 app.use(session);
-
-app.use(login.routes())
 
 app.use(async (ctx, next) => {
   // 对/favicon.ico网站图标请求忽略
   if (ctx.path === '/favicon.ico') return;
 
-  if (ctx.path.startsWith('/admin') && !ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
+  ctx.path = ctx.path.replace('/admin', '')
+
+  await next()
+})
+
+app.use(login.routes())
+
+app.use(async (ctx, next) => {
+  if (!ctx.session.userInfo) {  // 如果登录属性为undefined或者false，对应未登录和登录失败
     ctx.body = {
       code: 0,
       message: '请登录',
